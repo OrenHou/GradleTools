@@ -1,0 +1,10 @@
+ext {
+    plugin_repo = 'maven'
+    plugin_userOrg = "oren"
+    plugin_licenses = ['Apache-2.0']
+    plugin_vcsUrl = 'https://github.com/OrenHou/GradleTools.git'
+    plugin_desc = 'Oren\'s Gradle Plugin'
+    plugin_version = '1.0.0'
+    plugin_groupId = 'org.oren.plugin'
+    plugin_artifactId = 'gradle-plugin'
+}

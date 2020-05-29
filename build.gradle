@@ -1,7 +1,11 @@
 plugins {
     id 'groovy'
+    id 'java'//必须添加，不添加，找不到 Plugin id
     id "com.jfrog.bintray" version "1.8.5"
+    id 'maven-publish' //该插件可以将打包的jar发送到maven库
 }
+
+apply from: 'version.gradle'
 
 group 'org.oren.plugin'
 version '1.0-SNAPSHOT'
@@ -9,31 +13,68 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+    google()
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+//上传Jcenter的包配置
+publishing {
+    publications {
+        Jcenter(MavenPublication) {
+            version plugin_version
+            groupId plugin_groupId
+            artifactId plugin_artifactId
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+        }
+    }
+}
+//上传Jcenter
 bintray {
     Properties properties = new Properties()
     properties.load(new FileInputStream("local.properties"))
     user = properties.getProperty('bintray.user')
     key = properties.getProperty('bintray.key')
+    publications = ['Jcenter']
     pkg {
-        repo = 'gradletools'
-        name = 'PreparePlugin'
-        userOrg = "oren"
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/OrenHou/GradleTools.git'
-
+        repo = plugin_repo
+        name = plugin_groupId + ':' + plugin_artifactId
+        userOrg = plugin_userOrg
+        licenses = plugin_licenses
+        vcsUrl = plugin_vcsUrl
+        desc = plugin_desc
         version {
-            name = '1.0.0'
+            name = plugin_version
         }
-
     }
+}
+
+//本地测试使用的
+publishing {
+    publications {
+        Test(MavenPublication) {
+            version plugin_version
+            groupId plugin_groupId
+            artifactId plugin_artifactId
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = { uri("F:\\LocalMaven") }
+        }
+    }
+}
+
+task ot {
+    println project.group + ':PreparePlugin'
+    println plugin_version
 }
