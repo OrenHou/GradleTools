@@ -1,5 +1,6 @@
 plugins {
     id 'groovy'
+    id "com.jfrog.bintray" version "1.8.5"
 }
 
 group 'org.oren.plugin'
@@ -16,4 +17,21 @@ dependencies {
     compile localGroovy()
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+bintray {
+    user = bintray.user
+    key = bintray.key
+    pkg {
+        repo = 'gradletools'
+        name = 'PreparePlugin'
+        userOrg = "oren"
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/OrenHou/GradleTools.git'
+
+        version {
+            name = '1.0.0'
+        }
+
+    }
 }
