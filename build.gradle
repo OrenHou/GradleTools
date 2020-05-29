@@ -20,8 +20,10 @@ dependencies {
 }
 
 bintray {
-    user = bintray.user
-    key = bintray.key
+    Properties properties = new Properties()
+    properties.load(new FileInputStream("local.properties"))
+    user = properties.getProperty('bintray.user')
+    key = properties.getProperty('bintray.key')
     pkg {
         repo = 'gradletools'
         name = 'PreparePlugin'
