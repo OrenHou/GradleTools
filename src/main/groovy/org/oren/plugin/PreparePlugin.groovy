@@ -25,6 +25,6 @@ class PreparePlugin implements Plugin<Project> {
         XORTask xorTask = project.tasks.create("xor", XORTask.class)
         xorTask.xor = xor
         xorTask.xorDir = xorDir
-        xorTask.group = "xx"
+        xorTask.group = "oren"
     }
 }
