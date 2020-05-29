@@ -38,6 +38,10 @@ class XORAction implements Action<List<XORProcess>> {
             }
         } catch (IOException e) {
             L.e(process.logMsg + ":" + e.toString())
+        } finally {
+            inputStream.close()
+            outputStream.flush()
+            outputStream.close()
         }
         L.d("---XOR Encrypt End---")
     }
