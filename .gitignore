@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+*/*/build
+/captures
+.externalNativeBuild
+.cxx
+DO_LOCAL_META_PLUGIN_GRADLE
+jenkins_permission
+null
+*.log
+
